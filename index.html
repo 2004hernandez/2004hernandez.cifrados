@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifrado y Descifrado</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Cifrado y Descifrado</h1>
+        <!-- Pestañas para seleccionar método de cifrado -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="cesar-tab" data-toggle="tab" href="#cesar" role="tab" aria-controls="cesar" aria-selected="true">Cifrado César</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="clave-tab" data-toggle="tab" href="#clave" role="tab" aria-controls="clave" aria-selected="false">Cifrado con Clave</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="simetrico-tab" data-toggle="tab" href="#simetrico" role="tab" aria-controls="simetrico" aria-selected="false">Cifrado Simétrico (IDEA)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="asimetrico-tab" data-toggle="tab" href="#asimetrico" role="tab" aria-controls="asimetrico" aria-selected="false">Cifrado Asimétrico (MQV)</a>
+            </li>
+        </ul>
+        
+        <!-- Contenido de cada pestaña -->
+        <div class="tab-content" id="myTabContent">
+            <!-- Pestaña Cifrado César -->
+            <div class="tab-pane fade show active" id="cesar" role="tabpanel" aria-labelledby="cesar-tab">
+                <h2 class="mt-4">Cifrado y Descifrado César</h2>
+                <form id="cesarFormCifrar">
+                    <div class="form-group">
+                        <label for="textCifrar">Texto a cifrar:</label>
+                        <input type="text" id="textCifrar" class="form-control" required pattern="[A-Za-z\s]+" title="Solo letras y espacios">
+                    </div>
+                    <div class="form-group">
+                        <label for="shiftCifrar">Desplazamiento:</label>
+                        <input type="number" id="shiftCifrar" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-cifrar">Cifrar</button>
+                </form>
+                <div class="result">
+                    <h3>Texto cifrado:</h3>
+                    <p id="resultTextCifrar"></p>
+                    <button id="copyCifradoBtn" class="btn">Copiar Texto cifrado</button>
+                </div>
+                <form id="cesarFormDescifrar" class="mt-4">
+                    <div class="form-group">
+                        <label for="textDescifrar">Texto a descifrar:</label>
+                        <input type="text" id="textDescifrar" class="form-control" required pattern="[A-Za-z\s]+" title="Solo letras y espacios">
+                    </div>
+                    <div class="form-group">
+                        <label for="shiftDescifrar">Desplazamiento:</label>
+                        <input type="number" id="shiftDescifrar" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-descifrar">Descifrar</button>
+                </form>
+                <div class="result">
+                    <h3>Texto Descifrado:</h3>
+                    <p id="resultTextDescifrar"></p>
+                    <button id="copyDescifradoBtn" class="btn">Copiar Texto Descifrado</button>
+                </div>
+            </div>
+
+            <!-- Pestaña Cifrado Simétrico -->
+            <div class="tab-pane fade" id="simetrico" role="tabpanel" aria-labelledby="simetrico-tab">
+                <h2 class="mt-4">Cifrado y Descifrado Simétrico (IDEA)</h2>
+                <form id="symmetricForm">
+                    <div class="form-group">
+                        <label for="symmetricMessage">Mensaje:</label>
+                        <input type="text" id="symmetricMessage" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="symmetricKey">Clave Simétrica:</label>
+                        <input type="text" id="symmetricKey" class="form-control" required>
+                    </div>
+                    <button type="button" id="symmetricEncryptBtn" class="btn btn-primary">Cifrar Simétricamente</button>
+                </form>
+                <div class="result mt-4">
+                    <h3>Mensaje Cifrado:</h3>
+                    <p id="symmetricResultText"></p>
+                    <button id="copySymmetricBtn" class="btn">Copiar Mensaje Cifrado</button>
+                </div>
+                <form id="symmetricDecryptForm" class="mt-4">
+                    <div class="form-group">
+                        <label for="symmetricDecryptKey">Clave Simétrica:</label>
+                        <input type="text" id="symmetricDecryptKey" class="form-control" required>
+                    </div>
+                    <button type="button" id="symmetricDecryptBtn" class="btn btn-success">Descifrar Simétricamente</button>
+                </form>
+                <div class="result mt-4">
+                    <h3>Mensaje Descifrado:</h3>
+                    <p id="symmetricDecryptResultText"></p>
+                </div>
+            </div>
+
+            <!-- Pestaña Cifrado Asimétrico -->
+            <div class="tab-pane fade" id="asimetrico" role="tabpanel" aria-labelledby="asimetrico-tab">
+                <h2 class="mt-4">Cifrado y Descifrado Asimétrico (MQV)</h2>
+                <form id="asymmetricForm">
+                    <div class="form-group">
+                        <label for="asymmetricMessage">Mensaje:</label>
+                        <input type="text" id="asymmetricMessage" class="form-control" required>
+                    </div>
+                    <button type="button" id="asymmetricEncryptBtn" class="btn btn-secondary">Cifrar Asimétricamente</button>
+                </form>
+                <div class="result mt-4">
+                    <h3>Mensaje Cifrado:</h3>
+                    <p id="asymmetricResultText"></p>
+                    <button id="copyAsymmetricBtn" class="btn">Copiar Mensaje Cifrado</button>
+                </div>
+                <form id="asymmetricDecryptForm" class="mt-4">
+                    <button type="button" id="asymmetricDecryptBtn" class="btn btn-warning">Descifrar Asimétricamente</button>
+                </form>
+                <div class="result mt-4">
+                    <h3>Mensaje Descifrado:</h3>
+                    <p id="asymmetricDecryptResultText"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <script src="script2.js"></script>
+</body>
+</html>
